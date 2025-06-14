@@ -30,6 +30,7 @@
       
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-4 sm:space-x-6 items-center">
+        <a href="landing_page.html#" class="hover:text-gray-300 text-sm sm:text-base">Home</a>
         <a href="landing_page.html#fitur" class="hover:text-gray-300 text-sm sm:text-base">Fitur</a>
         <a href="landing_page.html#tentang" class="hover:text-gray-300 text-sm sm:text-base">Tentang</a>
         <a href="landing_page.html#testimoni" class="hover:text-gray-300 text-sm sm:text-base">Testimoni</a>
@@ -47,6 +48,7 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu md:hidden bg-blue-700 px-4">
       <div class="flex flex-col space-y-3 pb-3">
+        <a href="landing_page.html#" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Home</a>
         <a href="landing_page.html#fitur" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Fitur</a>
         <a href="landing_page.html#tentang" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Tentang</a>
         <a href="landing_page.html#testimoni" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Testimoni</a>
@@ -61,7 +63,7 @@
       <h2 class="text-3xl sm:text-5xl font-bold text-blue-700 mb-4 sm:mb-6">Otomatisasi Pakan Ikan</h2>
       <p class="text-base sm:text-lg text-gray-700 mb-6">Sipakis membantu Anda mengatur jadwal dan memantau pemberian pakan ikan dengan mudah dan efisien.</p>
       <div class="flex justify-center md:justify-start">
-        <a href="login.html" class="inline-block bg-blue-600 text-white px-6 py-2 sm:py-3 rounded-md hover:bg-blue-700 text-sm sm:text-base">Dashboard</a>
+        <a href="#" id="dashboardLink" class="inline-block bg-blue-600 text-white px-6 py-2 sm:py-3 rounded-md hover:bg-blue-700 text-sm sm:text-base">Dashboard</a>
       </div>
     </div>
     <div class="md:w-1/2 mb-6 md:mb-0 flex justify-center">
@@ -139,5 +141,32 @@
     });
   </script>
 
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAT-heeFEQAmvCi7mXO9nLwv_7WNh-qHNI",
+    authDomain: "sipakis-dashboard.firebaseapp.com"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const dashboardLink = document.getElementById("dashboardLink");
+
+  dashboardLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "ikan.html";
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  });
+</script>
 </body>
+
 </html>

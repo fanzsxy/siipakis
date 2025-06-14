@@ -19,6 +19,7 @@
   <!-- Custom Style -->
   <style>
     body {
+      display: none;
       font-family: 'Poppins', sans-serif;
       font-size: 14px;
     }
@@ -242,7 +243,7 @@
 
 
   // Tampilkan halaman setelah cek login
-  document.body.style.display = "none";
+  document.body.style.display = "block";
 
   // Logout
   document.getElementById("btnLogout").addEventListener("click", async () => {
@@ -250,6 +251,10 @@
     window.location.href = "login.html";
   });
 
+  document.getElementById("btnLogoutMobile").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
+  });
 
   // Toggle dropdown profil
   const profileBtn = document.getElementById("profileDropdownBtn");
@@ -266,7 +271,7 @@
     }
   });
 
-  // Tampilkan nama akun di dropdown
+// Tampilkan nama akun di dropdown desktop & mobile
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -274,11 +279,17 @@ onAuthStateChanged(auth, (user) => {
     document.body.style.display = "block";
 
     const profileName = document.getElementById("profileName");
-    profileName.textContent = user.displayName || user.email || "Pengguna";
+    const profileNameMobile = document.getElementById("profileNameMobile");
+
+    const name = user.displayName || user.email || "Pengguna";
+
+    profileName.textContent = name;
+    profileNameMobile.textContent = name;
 
     loadDashboardData();
   }
 });
+
 
  // Mobile menu toggle
     document.getElementById('mobileMenuButton').addEventListener('click', function() {
@@ -292,27 +303,7 @@ onAuthStateChanged(auth, (user) => {
       dropdown.classList.toggle('hidden');
     });
 
-    // Profile dropdown for desktop
-    document.getElementById('profileDropdownBtn').addEventListener('click', function() {
-      const dropdown = document.getElementById('profileDropdown');
-      dropdown.classList.toggle('hidden');
-    });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-      const profileBtn = document.getElementById('profileDropdownBtn');
-      const profileDropdown = document.getElementById('profileDropdown');
-      const profileBtnMobile = document.getElementById('profileDropdownBtnMobile');
-      const profileDropdownMobile = document.getElementById('profileDropdownMobile');
-      
-      if (!profileBtn.contains(event.target) && !profileDropdown.contains(event.target)) {
-        profileDropdown.classList.add('hidden');
-      }
-      
-      if (!profileBtnMobile.contains(event.target) && !profileDropdownMobile.contains(event.target)) {
-        profileDropdownMobile.classList.add('hidden');
-      }
-    });
 
 
   // Ambil elemen-elemen HTML yang akan dimanipulasi

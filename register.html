@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register - SIPAKIS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm">
+     <img src="SIPAKIS.png" alt="Logo SIPAKIS" class="mx-auto mb-4 w-32 h-auto" />
+    <h1 class="text-2xl font-bold mb-6 text-center">Daftar Akun SIPAKIS</h1>
+    <form id="registerForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Nama Lengkap" required class="w-full px-4 py-2 border rounded" />
+      <input type="email" id="email" placeholder="Email" required class="w-full px-4 py-2 border rounded" />
+      <input type="password" id="password" placeholder="Password" required class="w-full px-4 py-2 border rounded" />
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Daftar</button>
+    </form>
+    <p id="errorMessage" class="text-red-600 text-sm mt-4 text-center hidden">Gagal mendaftar. Coba lagi.</p>
+    <p class="text-sm text-center mt-4">Sudah punya akun? <a href="login.html" class="text-blue-600 hover:underline">Login</a></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    const app = initializeApp({
+      apiKey: "AIzaSyAT-heeFEQAmvCi7mXO9nLwv_7WNh-qHNI",
+      authDomain: "sipakis-dashboard.firebaseapp.com",
+    });
+
+    const auth = getAuth();
+
+    const form = document.getElementById("registerForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: name });
+        window.location.href = "ikan.html"; // atau login.html kalau ingin langsung login
+      } catch (error) {
+        console.error(error);
+        errorMessage.classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+</html>

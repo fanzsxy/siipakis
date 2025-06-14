@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - SIPAKIS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm text-center">
+    
+    <!-- Gambar Logo -->
+    <img src="SIPAKIS.png" alt="Logo SIPAKIS" class="mx-auto mb-4 w-32 h-auto" />
+
+    <h1 class="text-2xl font-bold mb-6">Login SIPAKIS</h1>
+
+    <form id="loginForm" class="space-y-4 text-left">
+      <input type="email" id="email" placeholder="Email" required class="w-full px-4 py-2 border rounded" />
+      <input type="password" id="password" placeholder="Password" required class="w-full px-4 py-2 border rounded" />
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
+    </form>
+
+    <p id="errorMessage" class="text-red-600 text-sm mt-4 hidden">Login gagal. Periksa email dan password.</p>
+    <p class="text-sm mt-4">Belum punya akun? <a href="register.html" class="text-blue-600 hover:underline">Register</a></p>
+     <p class="text-sm mt-4">Kembali? <a href="landing_page.html" class="text-blue-600 hover:underline">Home</a></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    const app = initializeApp({
+      apiKey: "AIzaSyAT-heeFEQAmvCi7mXO9nLwv_7WNh-qHNI",
+      authDomain: "sipakis-dashboard.firebaseapp.com",
+    });
+
+    const auth = getAuth();
+
+    const form = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("errorMessage");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "ikan.html";
+        })
+        .catch(() => {
+          errorMessage.classList.remove("hidden");
+        });
+    });
+  </script>
+</body>
+</html>

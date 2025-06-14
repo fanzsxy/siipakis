@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Pengaturan karakter dan tampilan responsive -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Dashboard Pakan Ikan Otomatis</title>
+
+  <!-- Import Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Import Bootstrap CSS & JS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Import Font Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Custom Style -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+    }
+
+    /* Animasi slide masuk untuk alert */
+    @keyframes slide-in {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .animate-slide-in {
+      animation: slide-in 0.5s ease-out;
+    }
+
+    /* Warna bergantian untuk baris tabel */
+    table tbody tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    /* Mobile menu styles */
+    .mobile-menu {
+      display: none;
+    }
+    .mobile-menu.active {
+      display: block;
+    }
+
+    /* Responsive table */
+    .responsive-table {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding-bottom: 100px;
+      }
+      table {
+        font-size: 12px;
+      }
+      th, td {
+        padding: 6px 4px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 pb-24">
+
+  <!-- ========== HEADER / NAVBAR ========== -->
+  <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <img src="SIPAKIS-removebg-preview.png" alt="Logo Ikan" class="w-8 h-8" />
+        <h1 class="text-lg sm:text-2xl font-bold">Sipakis</h1>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6 items-center">
+        <a href="landing_page.html#fitur" class="hover:text-gray-300 text-sm sm:text-base">Fitur</a>
+        <a href="landing_page.html#tentang" class="hover:text-gray-300 text-sm sm:text-base">Tentang</a>
+        <a href="landing_page.html#testimoni" class="hover:text-gray-300 text-sm sm:text-base">Testimoni</a>
+        <!-- Profil Dropdown -->
+        <div class="relative">
+          <button id="profileDropdownBtn" class="bg-white text-blue-600 px-3 py-1 sm:px-4 sm:py-2 rounded hover:bg-gray-100 flex items-center space-x-1 sm:space-x-2 text-sm sm:text-base">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A10.96 10.96 0 0112 15c2.485 0 4.77.895 6.879 2.379M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Profil</span>
+          </button>
+          <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden z-50">
+            <div class="px-4 py-2 text-sm text-gray-700 border-b" id="profileName">Nama Akun</div>
+            <button id="btnLogout" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+          </div>
+        </div>
+      </nav>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuButton" class="md:hidden text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu md:hidden bg-blue-700 pb-3 px-4">
+      <div class="flex flex-col space-y-3">
+        <a href="landing_page.html#fitur" class="text-white hover:text-gray-300 py-1">Fitur</a>
+        <a href="landing_page.html#tentang" class="text-white hover:text-gray-300 py-1">Tentang</a>
+        <a href="landing_page.html#testimoni" class="text-white hover:text-gray-300 py-1">Testimoni</a>
+        <div class="pt-2 border-t border-blue-600">
+          <button id="profileDropdownBtnMobile" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100 flex items-center space-x-2 w-full justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A10.96 10.96 0 0112 15c2.485 0 4.77.895 6.879 2.379M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Profil</span>
+          </button>
+          <div id="profileDropdownMobile" class="mt-2 bg-white rounded-lg shadow-lg hidden">
+            <div class="px-4 py-2 text-sm text-gray-700 border-b" id="profileNameMobile">Nama Akun</div>
+            <button id="btnLogoutMobile" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== NOTIFIKASI PAKAN HABIS ========== -->
+  <div id="notifikasiPakanHabis" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 px-4 py-3 sm:px-6 sm:py-4 bg-red-600 text-white text-xs sm:text-sm rounded-lg shadow-lg z-50 flex items-center space-x-2 sm:space-x-3 max-w-[90%]">
+    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 17a5 5 0 100-10 5 5 0 000 10z" />
+    </svg>
+    <span class="font-semibold">Pakan habis! Silakan isi ulang wadah pakan.</span>
+  </div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="p-3 sm:p-6 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+
+    <!-- Informasi Jumlah Pakan -->
+    <div class="bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm p-3 sm:p-6 hover:shadow-md transition-shadow">
+      <h2 class="text-base sm:text-xl font-semibold mb-3 sm:mb-4">Jumlah Pakan Tersisa</h2>
+      <div id="jumlahPakan" class="text-2xl sm:text-4xl font-bold text-success">--</div>
+    </div>
+
+    <!-- Informasi Jadwal Pakan Berikutnya -->
+    <div class="bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm p-3 sm:p-6 hover:shadow-md transition-shadow">
+      <h2 class="text-base sm:text-xl font-semibold mb-3 sm:mb-4">Jadwal Pemberian Pakan Berikutnya</h2>
+      <div id="jadwalBerikutnya" class="text-lg sm:text-2xl">--</div>
+    </div>
+
+    <!-- Riwayat pemberian pakan -->
+    <div class="col-span-1 md:col-span-2 bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm p-3 sm:p-6">
+      <h2 class="text-base sm:text-xl font-semibold mb-3 sm:mb-4">Riwayat Pemberian Pakan</h2>
+      <div class="responsive-table">
+        <table class="w-full table-auto text-xs sm:text-sm text-left">
+          <thead class="bg-gray-100 text-gray-800 font-semibold">
+            <tr>
+              <th class="px-2 sm:px-4 py-2">Tanggal</th>
+              <th class="px-2 sm:px-4 py-2">Jam</th>
+              <th class="px-2 sm:px-4 py-2">Status</th>
+              <th class="px-2 sm:px-4 py-2">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="riwayatTabel"></tbody> <!-- Data akan diisi lewat Firebase -->
+        </table>
+      </div>
+      <div id="paginationRiwayat" class="flex justify-center mt-3 sm:mt-4 space-x-1 sm:space-x-2"></div>
+    </div>
+
+    <!-- Form untuk menambah jadwal + tabel daftar jadwal -->
+    <div class="col-span-1 md:col-span-2 bg-white border border-gray-200 p-3 sm:p-6 rounded-xl sm:rounded-2xl shadow-sm mt-4 sm:mt-6">
+      <h2 class="text-base sm:text-xl font-semibold mb-3 sm:mb-4">Manajemen Jadwal Pemberian Pakan</h2>
+
+      <!-- Form tambah jadwal -->
+      <form id="formJadwal" class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6 items-center">
+        <div>
+          <label class="block text-xs sm:text-sm font-medium text-gray-700">Waktu</label>
+          <input type="time" id="waktuInput" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm text-center text-xs sm:text-sm p-2" required />
+        </div>
+        <div class="flex justify-start space-x-2 md:col-span-2 mt-3 sm:mt-0">
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-1 sm:px-2 rounded-md transition-colors text-xs sm:text-sm">Tambah Jadwal</button>
+          <button type="button" id="pakanSekarang" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-1 sm:px-2 rounded-md transition-colors text-xs sm:text-sm">Pakan Sekarang</button>
+        </div>
+      </form>
+
+      <!-- Tabel daftar jadwal aktif -->
+      <div class="responsive-table">
+        <table class="w-full table-auto text-xs sm:text-sm text-center">
+          <thead class="bg-gray-100 text-gray-800 font-semibold">
+            <tr>
+              <th class="px-2 sm:px-4 py-2">Waktu</th>
+              <th class="px-2 sm:px-4 py-2">Status</th>
+              <th class="px-2 sm:px-4 py-2">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="jadwalTabel"></tbody> <!-- Data jadwal dari Firebase -->
+        </table>
+      </div>
+      <div id="paginationJadwal" class="flex justify-center mt-3 sm:mt-4 space-x-1 sm:space-x-2"></div>
+    </div>
+  </main>
+
+  <!-- ========== MODAL KONFIRMASI HAPUS ========== -->
+  <div class="modal fade" id="modalKonfirmasiHapus" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Konfirmasi Hapus</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">Apakah Anda yakin ingin menghapus data ini?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger" id="btnKonfirmasiHapus">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <script type="module">
+  
+  // Import library Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  import {
+    getDatabase, ref, onValue, onChildAdded, push, set, remove
+  } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+
+  // Konfigurasi Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyAT-heeFEQAmvCi7mXO9nLwv_7WNh-qHNI",
+    authDomain: "sipakis-dashboard.firebaseapp.com",
+    databaseURL: "https://sipakis-dashboard-default-rtdb.firebaseio.com",
+    projectId: "sipakis-dashboard",
+    storageBucket: "sipakis-dashboard.appspot.com",
+    messagingSenderId: "776129863640",
+    appId: "1:776129863640:web:b175c818e21b2b604bdcad"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+
+  // Tampilkan halaman setelah cek login
+  document.body.style.display = "none";
+
+  // Logout
+  document.getElementById("btnLogout").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
+  });
+
+
+  // Toggle dropdown profil
+  const profileBtn = document.getElementById("profileDropdownBtn");
+  const profileDropdown = document.getElementById("profileDropdown");
+
+  profileBtn.addEventListener("click", () => {
+  profileDropdown.classList.toggle("hidden");
+  });
+
+  // Tutup dropdown jika klik di luar
+  window.addEventListener("click", function (e) {
+    if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+      profileDropdown.classList.add("hidden");
+    }
+  });
+
+  // Tampilkan nama akun di dropdown
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    document.body.style.display = "block";
+
+    const profileName = document.getElementById("profileName");
+    profileName.textContent = user.displayName || user.email || "Pengguna";
+
+    loadDashboardData();
+  }
+});
+
+ // Mobile menu toggle
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Profile dropdown for mobile
+    document.getElementById('profileDropdownBtnMobile').addEventListener('click', function() {
+      const dropdown = document.getElementById('profileDropdownMobile');
+      dropdown.classList.toggle('hidden');
+    });
+
+    // Profile dropdown for desktop
+    document.getElementById('profileDropdownBtn').addEventListener('click', function() {
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.classList.toggle('hidden');
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      const profileBtn = document.getElementById('profileDropdownBtn');
+      const profileDropdown = document.getElementById('profileDropdown');
+      const profileBtnMobile = document.getElementById('profileDropdownBtnMobile');
+      const profileDropdownMobile = document.getElementById('profileDropdownMobile');
+      
+      if (!profileBtn.contains(event.target) && !profileDropdown.contains(event.target)) {
+        profileDropdown.classList.add('hidden');
+      }
+      
+      if (!profileBtnMobile.contains(event.target) && !profileDropdownMobile.contains(event.target)) {
+        profileDropdownMobile.classList.add('hidden');
+      }
+    });
+
+
+  // Ambil elemen-elemen HTML yang akan dimanipulasi
+  const jumlahPakanEl = document.getElementById("jumlahPakan");
+  const notifikasiPakanHabis = document.getElementById("notifikasiPakanHabis");
+  const jadwalBerikutEl = document.getElementById("jadwalBerikutnya");
+  const riwayatTabel = document.getElementById("riwayatTabel");
+  const jadwalTabel = document.getElementById("jadwalTabel");
+  const btnPakanSekarang = document.getElementById("pakanSekarang");
+
+  // Variabel global untuk menyimpan data yang akan dihapus
+  let tipeDel = "", keyDel = "", jadwalAktif = [];
+
+  // Fungsi untuk menampilkan notifikasi alert sementara
+  function showAlert(message, type = "info") {
+    const colorMap = {
+      info: "bg-blue-500",
+      success: "bg-green-500",
+      warning: "bg-yellow-500",
+      danger: "bg-red-500"
+    };
+
+    // Buat elemen alert secara dinamis
+    const alert = document.createElement("div");
+    alert.className = `
+      fixed bottom-4 right-4 max-w-sm w-full shadow-lg text-white px-4 py-3 rounded-lg flex items-center space-x-2 z-50
+      ${colorMap[type] || "bg-blue-500"} animate-slide-in
+    `;
+
+    alert.innerHTML = `
+      <span class="font-semibold">${message}</span>
+      <button onclick="this.parentElement.remove()" class="ml-auto focus:outline-none text-white hover:text-gray-200 text-xl">&times;</button>
+    `;
+
+    document.body.appendChild(alert);
+    setTimeout(() => alert.remove(), 4000); // Hapus alert setelah 4 detik
+  }
+
+  // ================== DATA: JUMLAH PAKAN ==================
+  // Pantau nilai jumlah pakan secara realtime
+  onValue(ref(db, "jumlah_pakan"), snap => {
+    const val = snap.val();
+    if (val === null || val === undefined) {
+      jumlahPakanEl.textContent = "--";
+      notifikasiPakanHabis.classList.add("hidden");
+      return;
+    }
+
+    // Ubah nilai pakan ke dalam bentuk deskriptif
+    let keterangan = "--";
+    if (val >= 50) {
+      keterangan = "Banyak";
+    } else if (val >= 9) {
+      keterangan = "Sedikit";
+    } else if (val >= 0) {
+      keterangan = "Habis";
+    }
+
+    jumlahPakanEl.textContent = keterangan;
+
+    // Tampilkan notifikasi jika pakan habis
+    notifikasiPakanHabis.classList.toggle("hidden", val > 0);
+  });
+
+  // ================== DATA: RIWAYAT ==================
+  // Ambil data riwayat dari Firebase dan tampilkan ke tabel
+ const ITEMS_PER_PAGE = 5;
+let currentPage = 1;
+let riwayatData = [];
+
+// Ambil data riwayat dari Firebase
+onValue(ref(db, "riwayat"), snap => {
+  riwayatData = [];
+  const data = snap.val() || {};
+  Object.entries(data).reverse().forEach(([key, val]) => {
+    riwayatData.push({ key, ...val });
+  });
+  renderRiwayat();
+});
+
+// Fungsi render riwayat berdasarkan halaman
+function renderRiwayat() {
+  riwayatTabel.innerHTML = "";
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pagedData = riwayatData.slice(start, start + ITEMS_PER_PAGE);
+
+  pagedData.forEach(item => {
+    riwayatTabel.innerHTML += `
+      <tr class="border-t">
+        <td class="px-4 py-2">${item.tanggal}</td>
+        <td class="px-4 py-2">${item.jam}</td>
+        <td class="px-4 py-2 text-success">${item.status}</td>
+        <td class="px-4 py-2">
+          <button onclick="konfirmasiHapus('riwayat','${item.key}')" class="text-danger hover:underline">Hapus</button>
+        </td>
+      </tr>`;
+  });
+
+  renderPagination();
+}
+
+// Render tombol pagination
+function renderPagination() {
+  const totalPages = Math.ceil(riwayatData.length / ITEMS_PER_PAGE);
+  const paginationEl = document.getElementById("paginationRiwayat");
+  paginationEl.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.className = `px-3 py-1 rounded ${i === currentPage ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`;
+    btn.addEventListener("click", () => {
+      currentPage = i;
+      renderRiwayat();
+    });
+    paginationEl.appendChild(btn);
+  }
+}
+
+
+  // Tampilkan alert realtime jika ada pemberian pakan baru yang sukses
+  onChildAdded(ref(db, "riwayat"), snap => {
+    const val = snap.val();
+    if (["sukses", "berhasil"].includes(val.status.toLowerCase())) {
+      showAlert(`Pakan diberikan pada ${val.tanggal} ${val.jam}`, "success");
+    }
+  });
+
+  // ================== DATA: JADWAL ==================
+  // Pantau perubahan data jadwal
+  onValue(ref(db, "jadwal"), snap => {
+    jadwalTabel.innerHTML = "";
+    jadwalAktif = [];
+    const data = snap.val() || {};
+    Object.entries(data).forEach(([key, val]) => {
+      jadwalTabel.innerHTML += `
+        <tr class="border-t">
+          <td class="px-4 py-2">${val.waktu}</td>
+          <td class="px-4 py-2">${val.status}</td>
+          <td class="px-4 py-2">
+            <button onclick="konfirmasiHapus('jadwal','${key}')" class="text-danger hover:underline">Hapus</button>
+          </td>
+        </tr>`;
+      // Simpan jadwal yang aktif ke array
+      if (val.status === "Aktif") jadwalAktif.push(val.waktu);
+    });
+
+    // Urutkan jadwal
+    jadwalAktif.sort();
+    updateNextSchedule(); // Update info jadwal berikutnya
+  });
+
+  // ================== JADWAL BERIKUTNYA ==================
+  // Fungsi untuk mencari dan menampilkan jadwal pemberian pakan selanjutnya
+  function updateNextSchedule() {
+    const now = new Date();
+    const nowStr = now.toTimeString().slice(0, 5); // Format "HH:MM"
+
+    // Cari jadwal yang lebih besar dari waktu sekarang
+    const nextWaktu = jadwalAktif.find(j => j > nowStr) || jadwalAktif[0];
+    if (nextWaktu) {
+      const tgl = now.getDate().toString().padStart(2, "0");
+      const bln = now.toLocaleString("default", { month: "long" });
+      const thn = now.getFullYear();
+      jadwalBerikutEl.textContent = `${nextWaktu} - ${tgl} ${bln} ${thn}`;
+    } else {
+      jadwalBerikutEl.textContent = "--";
+    }
+  }
+
+  // Update jadwal berikutnya setiap 1 detik
+  setInterval(updateNextSchedule, 1000);
+
+  // ================== TAMBAH JADWAL BARU ==================
+  // Saat form disubmit, tambahkan jadwal ke Firebase
+  document.getElementById("formJadwal").addEventListener("submit", e => {
+    e.preventDefault();
+    const waktu = document.getElementById("waktuInput").value;
+    if (!waktu) return showAlert("Waktu harus diisi", "warning");
+
+    push(ref(db, "jadwal"), { waktu, status: "Aktif" })
+      .then(() => showAlert("Jadwal ditambahkan", "info"))
+      .catch(() => showAlert("Gagal menambah jadwal", "danger"));
+  });
+
+  // ================== TOMBOL PAKAN SEKARANG ==================
+  // Kirim perintah untuk memberi pakan langsung ke Firebase
+  btnPakanSekarang.addEventListener("click", async () => {
+    btnPakanSekarang.disabled = true;
+    btnPakanSekarang.textContent = "Mengirim...";
+    try {
+      await set(ref(db, "perintah"), { pakan_sekarang: true });
+      showAlert("Perintah pakan dikirim", "success");
+    } catch {
+      showAlert("Gagal mengirim perintah", "danger");
+    } finally {
+      btnPakanSekarang.disabled = false;
+      btnPakanSekarang.textContent = "Pakan Sekarang";
+    }
+  });
+
+  // ================== HAPUS DATA ==================
+  // Simpan tipe dan key dari data yang ingin dihapus lalu tampilkan modal
+  window.konfirmasiHapus = (tipe, key) => {
+    tipeDel = tipe;
+    keyDel = key;
+    new bootstrap.Modal(document.getElementById("modalKonfirmasiHapus")).show();
+  };
+
+  // Saat tombol hapus dikonfirmasi, hapus data dari Firebase
+  document.getElementById("btnKonfirmasiHapus").addEventListener("click", () => {
+    remove(ref(db, `${tipeDel}/${keyDel}`))
+      .then(() => showAlert("Data dihapus", "danger"))
+      .catch(() => showAlert("Gagal menghapus data", "warning"))
+      .finally(() => {
+        bootstrap.Modal.getInstance(document.getElementById("modalKonfirmasiHapus")).hide();
+      });
+  });
+</script>
+
+
+</body>
+</html>

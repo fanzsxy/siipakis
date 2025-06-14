@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Sipakis - Sistem Pakan Ikan Otomatis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Mobile menu animation */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .mobile-menu.active {
+      max-height: 500px;
+      transition: max-height 0.5s ease-in;
+    }
+  </style>
+</head>
+<body class="bg-blue-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-blue-600 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <img src="SIPAKIS-removebg-preview.png" alt="Logo Ikan" class="w-8 h-8">
+        <h1 class="text-xl sm:text-2xl font-bold">Sipakis</h1>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-4 sm:space-x-6 items-center">
+        <a href="landing_page.html#fitur" class="hover:text-gray-300 text-sm sm:text-base">Fitur</a>
+        <a href="landing_page.html#tentang" class="hover:text-gray-300 text-sm sm:text-base">Tentang</a>
+        <a href="landing_page.html#testimoni" class="hover:text-gray-300 text-sm sm:text-base">Testimoni</a>
+        <a href="login.html" class="bg-white text-blue-600 px-3 py-1 sm:px-4 sm:py-2 rounded hover:bg-gray-100 text-sm sm:text-base">Dashboard</a>
+      </nav>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuButton" class="md:hidden text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu md:hidden bg-blue-700 px-4">
+      <div class="flex flex-col space-y-3 pb-3">
+        <a href="landing_page.html#fitur" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Fitur</a>
+        <a href="landing_page.html#tentang" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Tentang</a>
+        <a href="landing_page.html#testimoni" class="text-white hover:text-gray-300 py-2 border-b border-blue-600">Testimoni</a>
+        <a href="login.html" class="bg-white text-blue-600 px-3 py-2 rounded hover:bg-gray-100 text-center my-2">Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="flex flex-col-reverse md:flex-row items-center max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+    <div class="md:w-1/2 text-center md:text-left mt-6 md:mt-0">
+      <h2 class="text-3xl sm:text-5xl font-bold text-blue-700 mb-4 sm:mb-6">Otomatisasi Pakan Ikan</h2>
+      <p class="text-base sm:text-lg text-gray-700 mb-6">Sipakis membantu Anda mengatur jadwal dan memantau pemberian pakan ikan dengan mudah dan efisien.</p>
+      <div class="flex justify-center md:justify-start">
+        <a href="login.html" class="inline-block bg-blue-600 text-white px-6 py-2 sm:py-3 rounded-md hover:bg-blue-700 text-sm sm:text-base">Dashboard</a>
+      </div>
+    </div>
+    <div class="md:w-1/2 mb-6 md:mb-0 flex justify-center">
+      <img src="SIPAKIS-removebg-preview.png" alt="Ilustrasi Ikan" class="w-48 sm:w-64 h-auto">
+    </div>
+  </section>
+
+  <!-- Fitur -->
+  <section id="fitur" class="bg-white py-12 sm:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h3 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-blue-700">Fitur Unggulan</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
+        <div class="bg-blue-100 p-4 sm:p-6 rounded-xl shadow text-center">
+          <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">📅</div>
+          <h4 class="text-lg sm:text-xl font-semibold mb-2">Penjadwalan Otomatis</h4>
+          <p class="text-sm sm:text-base">Atur waktu pemberian pakan secara otomatis setiap hari.</p>
+        </div>
+        <div class="bg-blue-100 p-4 sm:p-6 rounded-xl shadow text-center">
+          <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">📊</div>
+          <h4 class="text-lg sm:text-xl font-semibold mb-2">Pantauan Pakan</h4>
+          <p class="text-sm sm:text-base">Lihat sisa pakan dengan sensor dan pantauan real-time.</p>
+        </div>
+        <div class="bg-blue-100 p-4 sm:p-6 rounded-xl shadow text-center">
+          <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">📈</div>
+          <h4 class="text-lg sm:text-xl font-semibold mb-2">Riwayat Pemberian</h4>
+          <p class="text-sm sm:text-base">Lacak data pemberian pakan sebelumnya dengan detail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tentang -->
+  <section id="tentang" class="py-12 sm:py-20 bg-blue-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <h3 class="text-2xl sm:text-3xl font-bold text-blue-700 mb-4 sm:mb-6">Tentang Sipakis</h3>
+      <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+        Sipakis (Sistem Pakan Ikan Otomatis) adalah solusi inovatif untuk budidaya ikan masa kini.
+        Kami menggabungkan teknologi dengan kemudahan penggunaan agar pembudidaya ikan dapat lebih efisien dan produktif.
+        Dari sensor canggih hingga penjadwalan otomatis, semua dirancang untuk mendukung petani ikan Indonesia.
+      </p>
+    </div>
+  </section>
+
+  <!-- Testimoni -->
+  <section id="testimoni" class="bg-white py-12 sm:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h3 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-blue-700">Apa Kata Mereka?</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
+        <div class="bg-blue-100 p-4 sm:p-6 rounded-xl shadow">
+          <p class="text-sm sm:text-base">"Dengan Sipakis, saya tidak pernah terlambat memberi makan ikan lagi. Sistemnya sangat membantu!"</p>
+          <p class="mt-3 sm:mt-4 font-bold text-blue-800 text-sm sm:text-base">– Dani, Mahasiswa</p>
+        </div>
+        <div class="bg-blue-100 p-4 sm:p-6 rounded-xl shadow">
+          <p class="text-sm sm:text-base">"Hemat waktu dan pakan. Saya bisa pantau dari jauh tanpa repot!"</p>
+          <p class="mt-3 sm:mt-4 font-bold text-blue-800 text-sm sm:text-base">– Desta, Mahasiswa</p>
+        </div>
+        <div class="bg-blue-100 p-4 sm:p-6 rounded-xl shadow">
+          <p class="text-sm sm:text-base">"Tampilannya modern dan mudah digunakan. Sangat cocok untuk bisnis kecil maupun besar."</p>
+          <p class="mt-3 sm:mt-4 font-bold text-blue-800 text-sm sm:text-base">– Yohan, Mahasiswa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 text-white text-center py-4 text-sm sm:text-base">
+    &copy; 2025 Sipakis. Semua Hak Dilindungi.
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

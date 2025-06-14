@@ -1,0 +1,91 @@
+{
+  "jadwal": {
+    "-OR6Uqd4qMJ-cETVR3CZ": {
+      "status": "Aktif",
+      "waktu": "19:52"
+    },
+    "-OR7EzF57xzD25lsut1y": {
+      "status": "Aktif",
+      "waktu": "23:21"
+    },
+    "-ORATHbvfUHokz_hQf_G": {
+      "status": "Aktif",
+      "waktu": "14:24"
+    },
+    "-ORAUS3-WW0V06aP_d6Z": {
+      "status": "Aktif",
+      "waktu": "14:29"
+    },
+    "-ORFTKFhr2k6YOigQU4s": {
+      "status": "Aktif",
+      "waktu": "13:42"
+    }
+  },
+  "jumlah_pakan": 22,
+  "perintah": {
+    "pakan_sekarang": false
+  },
+  "riwayat": {
+    "-ORMJx5lLbIE7KETA7Ft": {
+      "jam": "21.37",
+      "status": "Sukses",
+      "tanggal": "28/05/2025"
+    },
+    "-ORMK68QN4fKBwJMAbbc": {
+      "jam": "21.38",
+      "status": "Sukses",
+      "tanggal": "28/05/2025"
+    },
+    "-ORMMTRaWa8KScfqg21v": {
+      "jam": "21.48",
+      "status": "Sukses",
+      "tanggal": "28/05/2025"
+    },
+    "-ORpobwTspLox9EbAN4J": {
+      "jam": "19.44",
+      "status": "Sukses",
+      "tanggal": "03/06/2025"
+    },
+    "-ORpog7J2hS3U6WA7DhY": {
+      "jam": "19.44",
+      "status": "Sukses",
+      "tanggal": "03/06/2025"
+    },
+    "-ORpqMCb9NDv6ObdKQp6": {
+      "jam": "19.52",
+      "status": "Sukses",
+      "tanggal": "03/06/2025"
+    },
+    "-ORsk_f9Sks-TiHettz4": {
+      "jam": "09.25",
+      "status": "Sukses",
+      "tanggal": "04/06/2025"
+    },
+    "-ORskbpoIwyHPtd15HMD": {
+      "jam": "09.25",
+      "status": "Sukses",
+      "tanggal": "04/06/2025"
+    },
+    "-ORskuLPv2bM0Xkum0qn": {
+      "jam": "09.27",
+      "status": "Sukses",
+      "tanggal": "04/06/2025"
+    },
+    "-ORsmw285e-XCg1wIhuG": {
+      "jam": "09.36",
+      "status": "Sukses",
+      "tanggal": "04/06/2025"
+    },
+    "-ORt1oWlxEEYVa8eY616": {
+      "jam": "10.45",
+      "status": "Sukses",
+      "tanggal": "04/06/2025"
+    },
+    "-ORt1rowZphaCHMpcjm5": {
+      "jam": "10.45",
+      "status": "Sukses",
+      "tanggal": "04/06/2025"
+    }
+  }
+  
+}

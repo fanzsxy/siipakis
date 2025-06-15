@@ -63,6 +63,16 @@
         padding: 6px 4px;
       }
     }
+    .dropdown-transition {
+     overflow: hidden;
+     max-height: 0;
+     opacity: 0;
+     transition: max-height 0.4s ease, opacity 0.4s ease;
+    }
+    .dropdown-transition.show {
+     max-height: 500px;
+     opacity: 1;
+    }
   </style>
 </head>
 <body class="bg-gray-100 pb-24">
@@ -72,7 +82,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <img src="SIPAKIS-removebg-preview.png" alt="Logo Ikan" class="w-8 h-8" />
-        <h1 class="text-lg sm:text-2xl font-bold">Sipakis</h1>
+        <a href="landing_page.html" class="text-lg sm:text-2xl font-bold">Sipakis</a>
       </div>
       
       <!-- Desktop Navigation -->
@@ -105,7 +115,7 @@
     </div>
     
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu md:hidden bg-blue-700 pb-3 px-4">
+    <div id="mobileMenu" class="dropdown-transition md:hidden bg-blue-700 pb-3 px-4">
       <div class="flex flex-col space-y-3">
         <a href="landing_page.html#home" class="text-white hover:text-gray-300 py-1">Home</a>
         <a href="landing_page.html#fitur" class="text-white hover:text-gray-300 py-1">Fitur</a>
@@ -118,7 +128,7 @@
             </svg>
             <span>Profil</span>
           </button>
-          <div id="profileDropdownMobile" class="mt-2 bg-white rounded-lg shadow-lg hidden">
+          <div id="profileDropdownMobile" class="dropdown-transition mt-2 bg-white rounded-lg shadow-lg">
             <div class="px-4 py-2 text-sm text-gray-700 border-b" id="profileNameMobile">Nama Akun</div>
             <button id="btnLogoutMobile" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Logout</button>
           </div>
@@ -297,13 +307,13 @@ onAuthStateChanged(auth, (user) => {
  // Mobile menu toggle
     document.getElementById('mobileMenuButton').addEventListener('click', function() {
       const mobileMenu = document.getElementById('mobileMenu');
-      mobileMenu.classList.toggle('active');
+      mobileMenu.classList.toggle('show');
     });
 
     // Profile dropdown for mobile
     document.getElementById('profileDropdownBtnMobile').addEventListener('click', function() {
       const dropdown = document.getElementById('profileDropdownMobile');
-      dropdown.classList.toggle('hidden');
+      dropdown.classList.toggle('show');
     });
 
 

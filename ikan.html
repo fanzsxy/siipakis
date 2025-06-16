@@ -339,29 +339,32 @@ onAuthStateChanged(auth, (user) => {
   let tipeDel = "", keyDel = "", jadwalAktif = [];
 
   // Fungsi untuk menampilkan notifikasi alert sementara
-  function showAlert(message, type = "info") {
-    const colorMap = {
-      info: "bg-blue-500",
-      success: "bg-green-500",
-      warning: "bg-yellow-500",
-      danger: "bg-red-500"
-    };
+ function showAlert(message, type = "info") {
+  const colorMap = {
+    info: "bg-blue-500",
+    success: "bg-green-500",
+    warning: "bg-yellow-500",
+    danger: "bg-red-600"
+  };
 
-    // Buat elemen alert secara dinamis
-    const alert = document.createElement("div");
-    alert.className = `
-      fixed bottom-4 right-4 max-w-sm w-full shadow-lg text-white px-4 py-3 rounded-lg flex items-center space-x-2 z-50
-      ${colorMap[type] || "bg-blue-500"} animate-slide-in
-    `;
+  const alert = document.createElement("div");
+  alert.className = `
+    fixed bottom-6 right-6 sm:right-8 z-[9999]
+    px-4 py-3 rounded-md shadow-lg flex items-center space-x-3 animate-slide-in
+    text-white text-sm sm:text-base max-w-[90vw] sm:max-w-md
+    ${colorMap[type] || "bg-blue-500"}
+  `;
 
-    alert.innerHTML = `
-      <span class="font-semibold">${message}</span>
-      <button onclick="this.parentElement.remove()" class="ml-auto focus:outline-none text-white hover:text-gray-200 text-xl">&times;</button>
-    `;
+  alert.innerHTML = `
+    <span class="font-medium">${message}</span>
+    <button onclick="this.parentElement.remove()" class="ml-4 text-xl font-bold leading-none">&times;</button>
+  `;
 
-    document.body.appendChild(alert);
-    setTimeout(() => alert.remove(), 4000); // Hapus alert setelah 4 detik
-  }
+  document.body.appendChild(alert);
+  setTimeout(() => alert.remove(), 5000);
+}
+
+
 
   // ================== DATA: JUMLAH PAKAN ==================
   // Pantau nilai jumlah pakan secara realtime

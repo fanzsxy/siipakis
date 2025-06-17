@@ -137,7 +137,7 @@
   </header>
 
   <!-- ========== NOTIFIKASI PAKAN HABIS ========== -->
-  <div id="notifikasiPakanHabis" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 px-4 py-3 sm:px-6 sm:py-4 bg-red-600 text-white text-xs sm:text-sm rounded-lg shadow-lg z-50 flex items-center space-x-2 sm:space-x-3 max-w-[90%]">
+  <div id="notifikasiPakanHabis" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 px-4 py-3 sm:px-6 sm:py-4 bg-red-600 text-white text-xs sm:text-sm rounded-lg z-50 flex items-center space-x-2 sm:space-x-3 max-w-[90%]">
     <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 17a5 5 0 100-10 5 5 0 000 10z" />
     </svg>
@@ -350,7 +350,7 @@ onAuthStateChanged(auth, (user) => {
   const alert = document.createElement("div");
   alert.className = `
     fixed bottom-6 right-6 sm:right-8 z-[9999]
-    px-4 py-3 rounded-md shadow-lg flex items-center space-x-3 animate-slide-in
+    px-4 py-3 rounded-md flex items-center space-x-3 animate-slide-in
     text-white text-sm sm:text-base max-w-[90vw] sm:max-w-md
     ${colorMap[type] || "bg-blue-500"}
   `;
